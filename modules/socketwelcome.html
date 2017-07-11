@@ -7,16 +7,24 @@
     </head>
     <body >
     <div id="countOutput"></div>
+    <input type="text" id="message"/>
+    <input type="button" onclick="sendData()" value="send data"/>
     </body>
-          <script type="text/javascript">
-        var socket;
-        var socket = io();
-        socket.on('time',function(count){
+        <script type="text/javascript">
+            var socket;
+            var socket = io();
+        
+            socket.on('time',function(count){
 
-            var countOutput = document.getElementById("countOutput");
-            countOutput.innerHTML = count;
-        });
+                var countOutput = document.getElementById("countOutput");
+                countOutput.innerHTML = count;
+            });
 
-   
+            function sendData(){
+                var message = document.getElementById("message").value;
+                socket.emit('message',message);
+
+            }
+
         </script>
 </html>

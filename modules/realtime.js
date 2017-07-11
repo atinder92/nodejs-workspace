@@ -3,7 +3,7 @@ var fs   = require('fs');
 var socketio   = require('socket.io');
 
 //configuration
-var PORT = 8094;
+var PORT = 8085;
 var IP   = "localhost";
 
 //server setup
@@ -32,19 +32,25 @@ console.log("** Server started");
 //socket io configuration
 var io = socketio.listen(server);
 
-io.on('connection',function(){
+io.on('connection',function(socket){
 
-    console.log('** Socket started');
+        console.log('** Socket started');
 
-    var count = 0;
-    setInterval(function(){
+        var count = 0;
+        setInterval(function(){
 
-        io.emit('time',count);
-        count++;
+            socket.emit('time',count);
+            count++;
 
-    },1000);
+        },1000);
+
+        socket.on('message',function(message){
+            console.log("** Got Data "+message);
+
+        });
 
 
 
 
 });
+
