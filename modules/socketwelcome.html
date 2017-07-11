@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Socket IO example</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  
+    </head>
+    <body >
+    <div id="countOutput"></div>
+    </body>
+          <script type="text/javascript">
+        var socket;
+        var socket = io();
+        socket.on('time',function(count){
+
+            var countOutput = document.getElementById("countOutput");
+            countOutput.innerHTML = count;
+        });
+
+   
+        </script>
+</html>
