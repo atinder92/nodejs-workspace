@@ -2,3 +2,5 @@
 package.json
 /public/lib
 bower.json
+.jscsrc
+.jshintrc
