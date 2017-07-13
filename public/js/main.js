@@ -1,1 +1,1 @@
-console.log('Js loading');
+console.log('Js loading now ');
