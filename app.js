@@ -25,17 +25,25 @@ app.set('views','./src/views');
 app.set('view engine','ejs');
 
 
+//Routes
+var booksRouter = require('./src/routes/bookRoutes');
+
+//if the request goes to /books, then use booksRouter
+app.use('/books',booksRouter);
+
+
 app.get('/',function(req,res){
 
-    res.render('index',{title:"EJS"});
+    res.render('index',{
+        nav:[{
+            Link:"/authors",
+            Text:"Authors"
+        },{
+            Link:"/books",
+            Text:"Books"
+        }]
 
-});
-
-
-app.get('/books',function(req,res){
-
-    res.send('Hello Books New');
-
+    });
 
 });
 

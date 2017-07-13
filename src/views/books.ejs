@@ -29,6 +29,29 @@
     </ul>
   </div>
 </nav>
+<div class="container">
+<h2>Books Page</h2>
+
+<div class="books-container">
+<% for(i=0;i<books.length;i++) { %>
+
+<div class="book">
+    <div class="book-title"><a href="/books/<%=(i+1)%>"><%= books[i].title%></a></div>
+    <div class="book-author"><%= books[i].author%></div>
+
+
+</div>
+
+
+
+<% } %>    
+
+
+</div>    
+
+
+</div>    
+
 </body>
 
 <!-- bower:js -->

@@ -3,7 +3,7 @@ var jscs        = require('gulp-jscs');
 var jshint      = require('gulp-jshint');
 var nodemon     = require('gulp-nodemon');
 
-var jsFiles = ['app.js','public/js/**/*.js'];
+var jsFiles = ['app.js','public/js/**/*.js','src/**/*.js'];
 
 
 gulp.task('style',function(){
