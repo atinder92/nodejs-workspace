@@ -24,9 +24,17 @@ app.set('views','./src/views');
 //Install EJS using - npm install --save ejs
 app.set('view engine','ejs');
 
+var nav = [{
+            Link:"/authors",
+            Text:"Authors"
+        },{
+            Link:"/books",
+            Text:"Books"
+        }];
+
 
 //Routes
-var booksRouter = require('./src/routes/bookRoutes');
+var booksRouter = require('./src/routes/bookRoutes')(nav);
 
 //if the request goes to /books, then use booksRouter
 app.use('/books',booksRouter);

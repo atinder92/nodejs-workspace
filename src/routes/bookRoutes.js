@@ -26,49 +26,43 @@ var books = [{
 ];
 
 
+var  router = function(nav){
+
 // SETTING ROUTES FOR THE APPLICATION
 
 
-booksRouter.route('/').get(function(req,res){
+    booksRouter.route('/').get(function(req,res){
 
-    res.render('books',{
-        books:books,
-        nav : [{
-            Link:"/authors",
-            Text:"Authors"
-        },{
-            Link:"/books",
-            Text:"Books"
-        }]
+        res.render('books',{
+            books:books,
+            nav :nav
 
+
+        });
 
     });
 
-});
+    booksRouter.route('/:id').get(function(req,res){
+        //get id
+        var id = req.params.id;
 
-booksRouter.route('/:id').get(function(req,res){
-    //get id
-    var id = req.params.id;
-
-    res.render('bookView',{
-        book:books[id-1],
-        nav : [{
-            Link:"/authors",
-            Text:"Authors"
-        },{
-            Link:"/books",
-            Text:"Books"
-        }]
+        res.render('bookView',{
+            book:books[id-1],
+            nav : nav
 
 
-    })
+        })
 
 
 
-    
-});
+        
+    });
+
+    return booksRouter;
 
 
+}
 
-module.exports = booksRouter;
+
+module.exports = router;
 
