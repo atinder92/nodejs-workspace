@@ -12,3 +12,33 @@
     font-size: 0.9em;
     font-style: italic;
 }
+/*Forms styles  */
+.forms-holder{
+    width:40%;
+    margin:0 auto;
+}
+.forms-holder .form-control{
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 0px;
+}
+.forms-holder form .btn-success{
+    display: block!important;
+    width:60%;
+    margin: 0 auto;
+}
+#toggle-forms{
+    margin-top: 10px;
+    font-size: 0.9em;
+    text-align: center;
+    font-weight: bold;
+}
+#toggle-forms span:hover{
+    cursor: pointer;
+}
+#signIn-form{
+    display: none;
+}
+#sign-up-form-show{
+    display: none;
+}

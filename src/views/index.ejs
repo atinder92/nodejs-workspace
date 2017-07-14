@@ -29,7 +29,51 @@
     </ul>
   </div>
 </nav>
+
+<!-- Sign In and Sign Up Form  -->
+<div class="forms-holder">
+
+  <!-- SignUp form  -->
+<form action="/auth/signUp" method="post" id="signUp-form">
+  <div class="form-group">
+    <input type="text"  name="username" placeholder="Choose Username" class="form-control" id="username">
+  </div>
+  <div class="form-group">
+    <input type="password" name="password" placeholder="Password" class="form-control" id="password">
+  </div>
+
+  <button type="submit" class="btn btn-success">Create your account</button>
+</form>
+
+
+<!-- SignIn Form  -->
+<form action="/auth/signIn" method="post" id="signIn-form">
+  <div class="form-group">
+    <input type="text"  name="username" placeholder="Username" class="form-control" id="username">
+  </div>
+  <div class="form-group">
+    <input type="password" name="password" placeholder="Password" class="form-control" id="password">
+  </div>
+
+  <button type="submit" class="btn btn-success">Sign in</button>
+</form>
+
+<div id="toggle-forms">
+<span onclick="toggleFormVisibility(event)" id="sign-in-form-show">Sign in to your account</span>
+<span onclick="toggleFormVisibility(event)" id="sign-up-form-show">Create new account</span>
+</div>
+
+
+
+
+
+</div>
+
+
 </body>
+
+
+
 
 <!-- bower:js -->
 <script src="/lib/jquery/dist/jquery.js"></script>

@@ -1,10 +1,11 @@
 var express = require('express');
-
 var app = express();
-
 var port = process.env.PORT || 8080;
+var bodyParser = require('body-parser');
 
 app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 // app.use(express.static('src/views'));
 
 //Jade Templating Engine Settings
@@ -36,12 +37,15 @@ var nav = [{
 //Routes
 var booksRouter = require('./src/routes/bookRoutes')(nav);
 var adminRouter = require('./src/routes/adminRoutes')(nav);
+var authRouter  = require('./src/routes/authRoutes')(nav);
+
+
 
 
 //if the request goes to /books, then use booksRouter
 app.use('/books',booksRouter);
 app.use('/admin',adminRouter);
-
+app.use('/auth',authRouter);
 
 app.get('/',function(req,res){
 
