@@ -35,9 +35,12 @@ var nav = [{
 
 //Routes
 var booksRouter = require('./src/routes/bookRoutes')(nav);
+var adminRouter = require('./src/routes/adminRoutes')(nav);
+
 
 //if the request goes to /books, then use booksRouter
 app.use('/books',booksRouter);
+app.use('/admin',adminRouter);
 
 
 app.get('/',function(req,res){

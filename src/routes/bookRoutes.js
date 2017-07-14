@@ -1,29 +1,6 @@
 var express = require('express');
 var booksRouter = express.Router();
-
-// Books Data
-var books = [{
-    title : "Book 1",
-    author:"Author 1"
-},
-{
-    title : "Book 2",
-    author:"Author 2"
-},
-{
-    title : "Book 3",
-    author:"Author 3"
-},
-{
-    title : "Book 4",
-    author:"Author 4"
-},
-{
-    title : "Book 5",
-    author:"Author 5"
-}
-
-];
+var mongodb = require('mongodb').MongoClient;
 
 
 var  router = function(nav){
@@ -33,12 +10,34 @@ var  router = function(nav){
 
     booksRouter.route('/').get(function(req,res){
 
-        res.render('books',{
-            books:books,
-            nav :nav
+        //connect to database
+        var url = "mongodb://localhost:27017/libraryapp";
+        mongodb.connect(url,function(err,db){
+
+            var collection = db.collection('books');
+
+            //get all books
+            collection.find({}).toArray(function(err,results){
+
+
+                  res.render('books',{
+                      books:results,
+                      nav :nav
+
+
+                   });
+
+
+            });
+
 
 
         });
+
+
+
+
+      
 
     });
 
