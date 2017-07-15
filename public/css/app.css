@@ -21,6 +21,7 @@
     width: 60%;
     margin: 0 auto;
     border-radius: 0px;
+    font-size: 0.9em;
 }
 .forms-holder form .btn-success{
     display: block!important;
