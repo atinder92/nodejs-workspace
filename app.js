@@ -61,6 +61,8 @@ app.use('/auth',authRouter);
 
 app.get('/',function(req,res){
 
+    console.log(req);
+
     res.render('index',{
         nav:[{
             Link:"/authors",

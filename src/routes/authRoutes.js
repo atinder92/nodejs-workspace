@@ -5,6 +5,9 @@ var passport = require('passport');
 
 var router = function(nav){
 
+    //Signing Up new user
+    //Insert user object into users collection
+
     authRouter.route('/signUp').post(function(req,res){
 
         console.log(req.body);
@@ -15,19 +18,19 @@ var router = function(nav){
         //connect with database
         mongodb.connect(url,function(err,db){
                 //select users collection
+                //If no users collection exists, then it will create one
                 var collection = db.collection('users');    
+                
                 //create user object
 
                 var user = {
-                    username : req.body.userName,
+                    username : req.body.username,
                     password : req.body.password
                 };
 
                 //insert user object in users collection
 
                 collection.insert(user,function(err,result){
-
-                    console.log(result);
                     db.close();
                 });
 
@@ -35,10 +38,7 @@ var router = function(nav){
         });
 
 
-        // req.login(req.body,function(){
-        //     res.redirect('/auth/profile');
-
-        // });
+    
 
 
     });
