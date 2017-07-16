@@ -8,6 +8,16 @@ var  router = function(nav){
 // SETTING ROUTES FOR THE APPLICATION
 
 
+    booksRouter.use(function(req,res,next){
+
+        if(!req.user){
+            res.redirect('/')
+        }
+        next();
+
+    });
+
+
     booksRouter.route('/').get(function(req,res){
 
         //connect to database
