@@ -38,9 +38,6 @@ app.set('views','./src/views');
 app.set('view engine','ejs');
 
 var nav = [{
-            Link:"/authors",
-            Text:"Authors"
-        },{
             Link:"/books",
             Text:"Books"
         }];
@@ -65,9 +62,6 @@ app.get('/',function(req,res){
 
     res.render('index',{
         nav:[{
-            Link:"/authors",
-            Text:"Authors"
-        },{
             Link:"/books",
             Text:"Books"
         }]
