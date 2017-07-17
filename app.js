@@ -3,6 +3,7 @@ var bodyParser      = require('body-parser');
 var cookieParser    = require('cookie-parser');
 var passport        = require('passport');
 var session         = require('express-session');
+var flash           = require('connect-flash');
 
 //create instance of express app
 var app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(session({secret:'library'}));
+app.use(flash());
 require('./src/config/passport')(app);
 
 
@@ -58,13 +60,14 @@ app.use('/auth',authRouter);
 
 app.get('/',function(req,res){
 
-    console.log(req);
 
+    validationError = req.flash('message');
     res.render('index',{
         nav:[{
             Link:"/books",
             Text:"Books"
-        }]
+        }],
+        validationErrorMsg:validationError
 
     });
 

@@ -1,6 +1,9 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var mongodb = require('mongodb').MongoClient;
+var passport        = require('passport');
+var LocalStrategy   = require('passport-local').Strategy;
+var mongodb         = require('mongodb').MongoClient;
+var flash           = require('connect-flash');
+
+
 
 module.exports = function(){
 
@@ -9,9 +12,10 @@ module.exports = function(){
         //get the username and password from request
 
         usernameField : 'username',
-        passportField : 'password'
+        passportField : 'password',
+        passReqToCallback : true
 
-    },function(username,password,done){
+    },function(req,username,password,done){
 
           //set database url
         var url = "mongodb://localhost:27017/libraryapp";
@@ -25,7 +29,7 @@ module.exports = function(){
                 
                 //if result is found, then send error message
                 if(result == null){
-                    done(null,false,{message:'Incorrect username'});
+                    done(null,false,req.flash('message', 'Username does not exist'));
                     return;
                 }
 
@@ -35,7 +39,7 @@ module.exports = function(){
                     done(null,user);
 
                 }else{
-                    done(null,false,{message:'Incorrect password'});
+                    done(null,false,req.flash('message', 'Incorrect Password'));
                 }
                 
 

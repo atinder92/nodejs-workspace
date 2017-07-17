@@ -15,7 +15,6 @@ var  router = function(nav){
         if(!req.user){
             res.redirect('/')
         }
-        console.log('testing');
         next();
 
     });

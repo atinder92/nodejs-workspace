@@ -45,7 +45,7 @@ var router = function(nav){
 
 
     // when sign in , authenticate user with local strategy
-    authRouter.route('/signIn').post(passport.authenticate('local',{failureRedirect:'/'}),function(req,res){
+    authRouter.route('/signIn').post(passport.authenticate('local',{failureRedirect:'/',failureFlash: true }),function(req,res){
 
         res.redirect('/auth/profile');
 
@@ -61,10 +61,8 @@ var router = function(nav){
 
     }).get(function(req,res){
 
-    
-
-
-        res.json(req.user);
+//        res.json(req.user);
+res.redirect('/books');
 
     });
 

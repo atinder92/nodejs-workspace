@@ -63,9 +63,14 @@
 <span onclick="toggleFormVisibility(event)" id="sign-up-form-show">Create new account</span>
 </div>
 
+<div id="validation-messages">
 
+  <% if(validationErrorMsg.length !=0 ){ %>
+  <div class="alert alert-danger">
+    <%=validationErrorMsg%></div> 
+  </div>
 
-
+  <%}%>
 
 </div>
 

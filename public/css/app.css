@@ -37,9 +37,16 @@
 #toggle-forms span:hover{
     cursor: pointer;
 }
-#signIn-form{
+#validation-messages .alert{
+    margin-top: 20px!important;
+    font-size: 0.9em;
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+}
+#signUp-form{
     display: none;
 }
-#sign-up-form-show{
+#sign-in-form-show{
     display: none;
 }
