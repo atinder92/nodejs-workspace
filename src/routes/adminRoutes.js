@@ -61,32 +61,68 @@ var router = function(nav){
 
     adminRouter.route('/addBooksForm').get(function(req,res){
 
+        
+        res.render('bookForm',{error:req.session.error,savedSuccess:req.session.savedSuccess},function(err,html){
+                    
+            //clears error session
+            delete req.session.error;
+            delete req.session.savedSuccess;
+            res.send(html);
 
-        res.render('bookForm');
-
+        });
 
     });
 
     //adding new item
     adminRouter.route('/addBooksForm/newitem').post(function(req,res){
 
-    //connect to mongodb via mongoose    
-    mongoose.connect('mongodb://localhost:27017/libraryapp');
+    
+    //get form fields and trim white spaces
 
-    var bookData = new bookModel({
-        bookName: req.body.bookName,
-        bookAuthor: req.body.bookAuthor,
-        bookDescription : req.body.bookDescription
+    var bookName = req.body.bookName.trim();
+    var bookAuthor = req.body.bookAuthor.trim();
+    var bookDescription = req.body.bookDescription.trim();
+
+    //validate form fields
+    var formValid = false;
+
+    if(!(bookName == "" || bookAuthor == "" || bookDescription == "")){
+        formValid = true;    
+    }
+
+    //save information, if form is valid
+    if(formValid){
+
+            //connect to mongodb via mongoose    
+            mongoose.connect('mongodb://localhost:27017/libraryapp');
+
+
+            var bookData = new bookModel({
+                bookName: req.body.bookName,
+                bookAuthor: req.body.bookAuthor,
+                bookDescription : req.body.bookDescription
 
 
 
 
-    });
+            });
+            bookData.save(function(err){
+                if(err){
+                    res.send('error in saving information');
+                    return;
+                }
+            req.session.savedSuccess = "Book Information Saved";
+            res.redirect('/admin/addBooksForm');
+
+            });
+        }
+        else{
+            //redirect to Book Form with error object
+            req.session.error = "Please fill in the form";
+            res.redirect('/admin/addBooksForm');
 
 
-    bookData.save();
-
-    res.send('Ok');
+        }
 
 
     });

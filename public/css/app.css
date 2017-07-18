@@ -60,3 +60,8 @@
 .background-book-form{
     background-color: #e6e6e6;
 }
+.book-form-container .alert{
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: bold;
+}
