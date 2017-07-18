@@ -15,6 +15,10 @@ var bookSchema = new Schema({
 
 });
 
+module.exports = mongoose.model('BookData',bookSchema,'BookData');
+
+
+
 /* 2 
 Creating schema without `id` field
 */

@@ -50,3 +50,13 @@
 #sign-in-form-show{
     display: none;
 }
+.book-form-container{
+    width:50%;
+}
+.book-form-container .form-control{
+    border-radius: 0px;
+    font-size: 0.9em;
+}
+.background-book-form{
+    background-color: #e6e6e6;
+}

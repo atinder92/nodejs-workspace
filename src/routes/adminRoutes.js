@@ -1,8 +1,8 @@
 var express  = require('express');
 var adminRouter = express.Router();
 var mongodb = require('mongodb').MongoClient;
-
-
+var mongoose = require('mongoose');
+var bookModel = require('../models/books.server.model');
 
 var books = [{
     title : "HTML and CSS: Design and Build Websites",
@@ -58,6 +58,39 @@ var router = function(nav){
 
 
     });
+
+    adminRouter.route('/addBooksForm').get(function(req,res){
+
+
+        res.render('bookForm');
+
+
+    });
+
+    //adding new item
+    adminRouter.route('/addBooksForm/newitem').post(function(req,res){
+
+    //connect to mongodb via mongoose    
+    mongoose.connect('mongodb://localhost:27017/libraryapp');
+
+    var bookData = new bookModel({
+        bookName: req.body.bookName,
+        bookAuthor: req.body.bookAuthor,
+        bookDescription : req.body.bookDescription
+
+
+
+
+    });
+
+
+    bookData.save();
+
+    res.send('Ok');
+
+
+    });
+
 
 
 

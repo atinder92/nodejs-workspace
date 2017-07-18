@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Add new book</title>
+    <!--inject:css-->
+    <link rel="stylesheet" href="/css/app.css">
+    <!--endinject-->
+    
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+
+    <!--inject:js-->
+    <script src="/js/main.js"></script>
+    <!--endinject-->
+</head>
+<body class="background-book-form">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Node App</a>
+    </div>
+    <ul class="nav navbar-nav">
+ 
+
+
+    </ul>
+  </div>
+</nav>
+<div class="container">
+<h3>Add new Book</h3>
+<br>
+<div class="book-form-container">
+<!--Add book form  -->
+<form method="post" action="addBooksForm/newitem">
+  <div class="form-group">
+    <input type="text" placeholder="Book Name" name="bookName" class="form-control" id="bookName">
+  </div>
+  <div class="form-group">
+    <input type="text" placeholder="Book Author" name="bookAuthor" class="form-control" id="bookAuthor">
+  </div>
+ <div class="form-group">
+    <textarea type="text" placeholder="Book Description" name="bookDescription" rows="7" class="form-control" id="bookDescription"></textarea>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+</div>    
+
+
+</div>    
+
+</body>
+
+<!-- bower:js -->
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+<!-- endbower -->
+
+</html>
