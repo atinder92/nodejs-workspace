@@ -94,9 +94,30 @@ var bookController = function(service,nav){
 
     }
 
+
+    var removeBookById = function(req,res){
+
+        //get id
+        var id = new objectId(req.params.id);
+        //Connect to mongoose 
+        mongoose.connect('mongodb://localhost:27017/libraryapp');
+
+        var query = BookData.findByIdAndRemove(id,function(err){
+
+            if(!err){
+                res.redirect('/books');
+            }
+
+        });
+
+
+
+    }
+
     return {
         getIndex : getIndex,
-        getById  : getById
+        getById  : getById,
+        removeBookById : removeBookById
     }
 
 

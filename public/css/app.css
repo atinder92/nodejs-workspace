@@ -5,7 +5,7 @@
 }
 .book-title{
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.0em;
     margin-bottom: 10px;
 }
 .book-description{
@@ -64,4 +64,7 @@
     text-align: center;
     font-size: 0.9em;
     font-weight: bold;
+}
+.remove-book button.btn{
+    font-size: 0.7em;
 }

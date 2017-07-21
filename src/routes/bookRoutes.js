@@ -22,6 +22,7 @@ var  router = function(nav){
 
     booksRouter.route('/').get(bookController.getIndex);
     booksRouter.route('/:id').get(bookController.getById);
+    booksRouter.route('/removeBook/:id').get(bookController.removeBookById);
 
     return booksRouter;
 
