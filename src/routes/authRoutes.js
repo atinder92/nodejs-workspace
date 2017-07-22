@@ -61,10 +61,24 @@ var router = function(nav){
 
     }).get(function(req,res){
 
-//        res.json(req.user);
-res.redirect('/books');
+          //res.json(req.user);
+          res.redirect('/books');
 
     });
+
+
+    //log out user
+    authRouter.route('/logout').get(function(req,res){
+
+        req.logout();
+        res.redirect('/');        
+
+
+
+
+    });
+
+
 
     return authRouter;
 }

@@ -42,7 +42,18 @@ app.set('view engine','ejs');
 var nav = [{
             Link:"/books",
             Text:"Books"
-        }];
+        },
+        
+        {
+            Link: "/admin/addBooksForm",
+            Text:"Add Book"   
+        },
+        {
+            Link:"/auth/logout",
+            Text:"Log out"
+        }
+    
+    ];
 
 
 //Routes
@@ -63,10 +74,7 @@ app.get('/',function(req,res){
 
     validationError = req.flash('message');
     res.render('index',{
-        nav:[{
-            Link:"/books",
-            Text:"Books"
-        }],
+        nav:[],
         validationErrorMsg:validationError
 
     });

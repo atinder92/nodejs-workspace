@@ -21,7 +21,9 @@
       <a class="navbar-brand" href="/">Node App</a>
     </div>
     <ul class="nav navbar-nav">
- 
+       <% for(i=0;i<nav.length;i++){ %>
+      <li><a href="<%= nav[i].Link %>"><%= nav[i].Text %></a></li>
+      <% } %>
 
 
     </ul>
