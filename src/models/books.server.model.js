@@ -10,6 +10,7 @@ var bookSchema = new Schema({
     bookName        : String,
     bookAuthor      : String,
     bookDescription : String,
+    imageId         : {type:String,default:null},
     createdDate     : {type:Date,default:Date.now}
 
 

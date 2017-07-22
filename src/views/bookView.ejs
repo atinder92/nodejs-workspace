@@ -37,8 +37,11 @@
 <div class="book">
     <div class="book-title"><%= book.bookName%></div>
     <div class="book-description"><%= book.bookDescription%></div>
-
-
+    <% if(book.imageId != null){ %>
+    <div class="book-image">
+    <img src="/<%=book.imageId %>" />
+    </div>
+    <%} %>
 </div>
 
 

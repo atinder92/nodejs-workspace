@@ -59,33 +59,69 @@ var router = function(nav){
                     //save the book, if form is valid
                     if(formValid){
 
-                        var oldpath = files.bookImage.path;
-                        var newpath = "/Users/atindersingh/Desktop/github apps/nodejs-workspace/uploads/"+files.bookImage.name;
+                  
+                                    //connect to mongodb via mongoose    
+                                    mongoose.connect('mongodb://localhost:27017/libraryapp');
 
-                        fs.rename(oldpath, newpath, function (err) {
-                                if (err) throw err;
-
-                                //connect to mongodb via mongoose    
-                                mongoose.connect('mongodb://localhost:27017/libraryapp');
-
-
-
-                                    //create bookData object
+                                   //create bookData object
                                     var bookData = new bookModel({
-                                        bookName: req.body.bookName,
-                                        bookAuthor: req.body.bookAuthor,
-                                        bookDescription : req.body.bookDescription
-
-
+                                        bookName: bookName,
+                                        bookAuthor: bookAuthor,
+                                        bookDescription :bookDescription
 
 
                                     });
                                     //save bookData object
-                                    bookData.save(function(err){
+                                    bookData.save(function(err,result){
                                         if(err){
                                             res.send('error in saving information');
                                             return;
+
                                         }
+
+                                        //Handling Image Upload *******************************************************
+                                        //check, if there is file
+                                        if(files.bookImage.name.length != 0){
+
+                                                //SAVING IMAGE TO DATABASE
+                                                //get object id
+                                                var objectId = result._id;                                        
+                                                var oldpath = files.bookImage.path;
+                                                var bookId = objectId+files.bookImage.name;
+                                                var newpath = "/Users/atindersingh/Desktop/github apps/nodejs-workspace/uploads/"+bookId;
+
+                                                //save the file to new path
+                                                fs.rename(oldpath, newpath, function (err) {
+                                                    if (err) throw err;
+                                                    //update the record with imageid
+
+                                                    bookModel.findByIdAndUpdate(objectId,{imageId:bookId},function(err){
+                                                        if(err){
+                                                            //error in saving image
+                                                            res.send('Error in saving image');
+
+                                                            //remove the record                                                            
+                                                            bookModel.findByIdAndRemove(objectId,function(err){
+                                                            });
+                                                            return;
+                                                        }
+                                                        req.session.savedSuccess = "Book Information Saved";
+                                                        res.redirect('/admin/addBooksForm');
+                                                        return;
+                                                    });
+
+
+
+                                                });
+                                                return;
+
+                                        }
+
+                                        //*****************************************************************************
+
+
+
+
                                         req.session.savedSuccess = "Book Information Saved";
                                         res.redirect('/admin/addBooksForm');
 
@@ -93,7 +129,6 @@ var router = function(nav){
         
 
 
-                            });
 
                     }else{
                         //redirect to Book Form with error object

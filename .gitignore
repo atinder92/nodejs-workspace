@@ -4,3 +4,5 @@ package.json
 bower.json
 .jscsrc
 .jshintrc
+
+/uploads/

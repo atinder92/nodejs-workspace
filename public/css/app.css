@@ -68,3 +68,11 @@
 .remove-book button.btn{
     font-size: 0.7em;
 }
+.image-icon{
+    display: inline-block;
+    margin-left: 10px;
+}
+.book-image img{
+    margin-top: 20px;
+    width: 100px;
+}

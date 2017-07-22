@@ -13,6 +13,8 @@
     <!--inject:js-->
     <script src="/js/main.js"></script>
     <!--endinject-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+    
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -37,7 +39,11 @@
 <% for(i=0;i<books.length;i++) { %>
 
 <div class="book">
-    <div class="book-title"><a href="/books/<%=books[i]._id%>"><%= books[i].bookName%></a></div>
+    <div class="book-title"><a href="/books/<%=books[i]._id%>"><%= books[i].bookName%></a>
+      <% if(books[i].imageId != null){ %>
+      <span class="image-icon"><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+      <% }%>
+    </div>
     <div class="remove-book"><a href="/books/removeBook/<%=books[i]._id%>"><button class="btn btn-danger btn-xs">Remove Book</button></a></div>
 
 </div>
