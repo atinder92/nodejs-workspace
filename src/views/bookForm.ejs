@@ -34,7 +34,7 @@
 <br>
 <div class="book-form-container">
 <!--Add book form  -->
-<form method="post" action="addBooksForm/newitem">
+<form method="post"  enctype="multipart/form-data" action="addBooksForm/newitem">
   <div class="form-group">
     <input type="text" placeholder="Book Name" name="bookName" class="form-control" id="bookName">
   </div>
@@ -44,6 +44,11 @@
  <div class="form-group">
     <textarea type="text" placeholder="Book Description" name="bookDescription" rows="7" class="form-control" id="bookDescription"></textarea>
   </div>
+
+<div class="form-group">
+    <b>Upload an image</b> <br/><br> <input type="file" name="bookImage" multiple="multiple">
+ </div> 
+
   <button type="submit" class="btn btn-default">Submit</button>
 </form><br>
 <% if(error){ %>

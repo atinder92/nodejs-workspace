@@ -1,9 +1,10 @@
-var express  = require('express');
+var express     = require('express');
 var adminRouter = express.Router();
-var mongodb = require('mongodb').MongoClient;
-var mongoose = require('mongoose');
-var bookModel = require('../models/books.server.model');
-
+var mongodb     = require('mongodb').MongoClient;
+var mongoose    = require('mongoose');
+var formidable  = require('formidable');
+var bookModel   = require('../models/books.server.model');
+var fs          = require('fs');
 
 
 var router = function(nav){
@@ -17,31 +18,7 @@ var router = function(nav){
         next();
 
     });
-    adminRouter.route('/addBooks').get(function(req,res){
-
-        //set database url
-        var url = "mongodb://localhost:27017/libraryapp";
-
-        //connect with database
-        mongodb.connect(url,function(err,db){
-            //create books collection
-            var collection = db.collection('books');
-            //insert books into collection
-            collection.insertMany(books,function(err,results){
-                res.send(results);
-                db.close();
-
-
-            });
-
-
-
-        });
-
-
-
-    });
-
+    
     adminRouter.route('/addBooksForm').get(function(req,res){
 
         
@@ -60,52 +37,76 @@ var router = function(nav){
     adminRouter.route('/addBooksForm/newitem').post(function(req,res){
 
     
-    //get form fields and trim white spaces
-
-    var bookName = req.body.bookName.trim();
-    var bookAuthor = req.body.bookAuthor.trim();
-    var bookDescription = req.body.bookDescription.trim();
-
-    //validate form fields
-    var formValid = false;
-
-    if(!(bookName == "" || bookAuthor == "" || bookDescription == "")){
-        formValid = true;    
-    }
-
-    //save information, if form is valid
-    if(formValid){
-
-            //connect to mongodb via mongoose    
-            mongoose.connect('mongodb://localhost:27017/libraryapp');
 
 
-            var bookData = new bookModel({
-                bookName: req.body.bookName,
-                bookAuthor: req.body.bookAuthor,
-                bookDescription : req.body.bookDescription
+            var form = new formidable.IncomingForm();
+            //set temp upload directory
+            form.uploadDir = "/Users/atindersingh/Desktop/github apps/nodejs-workspace/uploads";
+            //process the form
+            form.parse(req, function(err, fields, files) {
+            
+                //get form fields and trim white spaces
+                var bookName = fields.bookName.trim();
+                var bookAuthor = fields.bookAuthor.trim();
+                var bookDescription = fields.bookDescription.trim();
+
+                //validate form fields
+                    var formValid = false;
+
+                    if(!(bookName == "" || bookAuthor == "" || bookDescription == "")){
+                        formValid = true;    
+                    }
+                    //save the book, if form is valid
+                    if(formValid){
+
+                        var oldpath = files.bookImage.path;
+                        var newpath = "/Users/atindersingh/Desktop/github apps/nodejs-workspace/uploads/"+files.bookImage.name;
+
+                        fs.rename(oldpath, newpath, function (err) {
+                                if (err) throw err;
+
+                                //connect to mongodb via mongoose    
+                                mongoose.connect('mongodb://localhost:27017/libraryapp');
 
 
+
+                                    //create bookData object
+                                    var bookData = new bookModel({
+                                        bookName: req.body.bookName,
+                                        bookAuthor: req.body.bookAuthor,
+                                        bookDescription : req.body.bookDescription
+
+
+
+
+                                    });
+                                    //save bookData object
+                                    bookData.save(function(err){
+                                        if(err){
+                                            res.send('error in saving information');
+                                            return;
+                                        }
+                                        req.session.savedSuccess = "Book Information Saved";
+                                        res.redirect('/admin/addBooksForm');
+
+                                        });
+        
+
+
+                            });
+
+                    }else{
+                        //redirect to Book Form with error object
+                        req.session.error = "Please fill in the form";
+                        res.redirect('/admin/addBooksForm');
+                    }
 
 
             });
-            bookData.save(function(err){
-                if(err){
-                    res.send('error in saving information');
-                    return;
-                }
-            req.session.savedSuccess = "Book Information Saved";
-            res.redirect('/admin/addBooksForm');
+    
+    // }
 
-            });
-        }
-        else{
-            //redirect to Book Form with error object
-            req.session.error = "Please fill in the form";
-            res.redirect('/admin/addBooksForm');
-
-
-        }
+     
 
 
     });
